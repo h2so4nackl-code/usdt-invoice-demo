@@ -33,4 +33,6 @@ Windows launcher first failed due to an escaped comparison in the new Node-versi
 
 Dependency audit returned zero advisories through real npm audit (project-local HTTPS bridge); review inventory and npm-audit.json. Install scripts disabled. The archive omits .env, working databases, node_modules, caches and local audit transport logs. All source/package/lock/docs and curated public test evidence are intended for review; no endorsement/formal audit/mainnet-readiness claim.
 
+Git attributes normalize the committed lockfile to LF. Its publication SHA-256 is A3DC0850D0B432B7693B149E786E53859932F0982052440326FAC3C56D0812FC; the earlier Windows CRLF working copy had F3FC830EC56B823FE0B9C4956CF1F3F0C3530B04192BA24D95276D38F6C621CB. Only line endings differ; versions/integrities are unchanged. The evidence hash was corrected to the committed/extracted lockfile before final packaging.
+
 Publication status: **LOCAL ONLY — NOT PUBLISHED**. Mainnet, signatures, transfers, deployment, real funds, real credentials and grant submissions: **0**.

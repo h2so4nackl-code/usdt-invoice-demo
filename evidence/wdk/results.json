@@ -11,7 +11,7 @@
   "browser": {"wdk1440px": "PASS", "wdk390px": "PASS", "wdk320px": "PASS", "simulationDesktop": "PASS", "simulation390px": "PASS", "simulation320px": "PASS", "horizontalOverflow": false, "consoleErrorsOrWarnings": 0, "restartPersistence": "PASS"},
   "node": "24.16.0",
   "npm": "11.13.0",
-  "lockSHA256": "F3FC830EC56B823FE0B9C4956CF1F3F0C3530B04192BA24D95276D38F6C621CB",
+  "lockSHA256": "A3DC0850D0B432B7693B149E786E53859932F0982052440326FAC3C56D0812FC",
   "installedDependencies": 102,
   "installScripts": 0,
   "dependencyIntegrity": "PASS",
