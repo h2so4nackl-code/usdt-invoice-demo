@@ -3,7 +3,13 @@ setlocal
 cd /d "%~dp0"
 where node >nul 2>&1
 if errorlevel 1 (
-  echo Node.js 22 sau mai nou este necesar. Nu se instaleaza nimic automat.
+  echo Node.js 24 sau mai nou este necesar. Nu se instaleaza nimic automat.
+  pause
+  exit /b 1
+)
+node -e "if(Number(process.versions.node.split('.')[0])<24)process.exit(1)"
+if errorlevel 1 (
+  echo Node.js 24 sau mai nou este necesar pentru SQLite local.
   pause
   exit /b 1
 )

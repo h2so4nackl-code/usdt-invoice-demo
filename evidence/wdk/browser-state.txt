@@ -1,0 +1,114 @@
+Browser tab: 3, Title: "USDt Invoice Demo · WDK testnet read-only", URL: "http://127.0.0.1:4330/".
+1 AXWebArea USDt Invoice Demo · WDK testnet read-only, URL: 127.0.0.1:4330/
+	132 text WDK · TESTNET · READ-ONLY — USDC de test, nu USDt. Fără semnare sau fonduri reale.
+	10 container overview
+		11 container
+			143 text Mod
+			13 pop up button (collapsed, settable) Mod, Value: WDK · testnet · read-only, ID: mode-select, Secondary Actions: Expand
+				14 menu
+					15 Simulare
+					16 (selected) WDK · testnet · read-only
+			17 text DE
+		18 container
+			19 text FACTURARE & RECONCILIERE
+			20 heading O privire clară asupra plăților., Value: 1
+				21 text O privire clară asupra plăților.
+			144 text Asociază explicit evenimente ERC-20 de test cu facturi locale. Numai citire.
+			23 button ＋ Factură nouă, ID: new-invoice
+		134 container wdk-panel
+			135 text USDC de test · nu USDt oficial
+			136 text Sepolia · chainId 11155111 · numai citire. Facturile și evenimentele sunt izolate de simulare.
+			137 button Verifică WDK și profilul, ID: wdk-profile
+			138 button Reverifică evenimentele asociate, ID: wdk-refresh
+			142 text WDK 1.0.0-beta.20 · 0xe969a25b358325cd9db8fbdfc68e19f6b1709fcd · sold token: 35,606328 USDC test · decimals 6
+		140 text 1 tranzacții reverificate. Soldurile au fost recalculate.
+		24 container Situația facturilor
+			25 container
+				26 text Facturi emise
+				145 text 1
+				28 text În acest spațiu de lucru
+			29 container
+				30 text Încasări confirmate  USDC test
+				146 text 20,00
+				147 text Cel puțin 3 confirmări Sepolia
+			33 container
+				34 text Rest de încasat  USDC test
+				148 text 0,00
+				36 text Inclusiv facturile expirate
+			37 container
+				38 text Facturi achitate
+				39 container paid-count
+					149 text 1  / 1
+				41 text Pe baza soldului confirmat
+		42 container
+			43 heading Facturile tale, Value: 2
+				44 text Facturile tale
+			45 text Sumele sunt calculate exact, la 6 zecimale.
+			46 link Description: ↓ Export JSON, Value: 127.0.0.1:4330/api/testnet/export, ID: export
+			47 text Filtrează facturile
+			48 pop up button (collapsed, settable) Filtrează facturile, Value: Toate stările, ID: status-filter, Secondary Actions: Expand
+				49 menu
+					50 (selected) Toate stările
+					51 În așteptare
+					52 În confirmare
+					53 Parțială
+					54 Achitată
+					55 Expirată
+			150 text 1 facturi
+			151 checkbox Description: TEST-0001 Referință publică Sepolia · demo, Value: 1
+				152 text TEST-0001
+				153 text Referință publică Sepolia · demo
+				154 text Expiră 05 oct., 23:59
+				155 container
+					156 text 20,00  USDC test
+					157 text Achitată
+			79 container
+				80 text RECONCILIERE
+				81 heading TEST-0001, Value: 2, ID: detail-title
+					158 text TEST-0001
+				83 text ↗
+				84 container detail-body
+					159 container
+						160 text Referință publică Sepolia · demo ·  Achitată
+					161 text CONFIRMAT
+					162 text 20,00 USDC test
+					163 progress indicator Description: Progresul plății confirmate, Value: 100
+					164 text din 20,00 USDC test 100% achitat Rest de încasat
+					165 text 0,00 USDC test
+					166 text În confirmare
+					167 text 0,00 USDC test
+					168 text Excedent confirmat
+					169 text 0,00 USDC test
+					170 text Credit numai dacă timestamp-ul blocului este în intervalul explicit al facturii. Soldul este ultima verificare reușită; folosește reverificarea pentru reorganizări.
+					171 container Verificare tranzacție testnet
+						172 container
+							173 text Hash tranzacție Sepolia
+							174 text field (settable) Hash tranzacție Sepolia
+						175 container
+							176 text LogIndex explicit
+							177 stepper (settable, integer) LogIndex explicit, Value: 0
+						178 button Verifică și asociază evenimentul
+					179 text EVENIMENTE ASOCIATE · 1
+					180 text 20,00 USDC test
+					181 text 155 confirmări · În interval
+					182 text 11155111:0x995f95f890140017d7c8a99c32a9eb275f64a68695fe9fff0eab974e5fdb685a:4
+					183 text Bloc: 11843617 · 04 oct., 19:43
+			104 container
+				105 text ✓ O singură plată. O singură sumă. Actualizările confirmărilor înlocuiesc observația existentă. Duplicatele nu cresc soldul.
+		106 container journal
+			107 heading Jurnal de activitate, Value: 2
+				108 text Jurnal de activitate
+			109 text Creări, observații și actualizări de confirmări.
+			111 content list journal-list
+				184 container
+					185 text Confirmări actualizate · TEST-0001 · 90 → 155 04 oct., 20:18
+				186 container
+					187 text Confirmări actualizate · TEST-0001 04 oct., 20:04
+				188 container
+					189 text Eveniment testnet verificat · TEST-0001 04 oct., 20:00
+				190 container
+					191 text Factură creată · TEST-0001 04 oct., 20:00
+		130 container
+			131 text USDt Invoice Demo · v0.2.0 WDK real · Sepolia · fără semnare sau fonduri reale.
+
+The focused UI element is 1 AXWebArea USDt Invoice Demo · WDK testnet read-only, URL: 127.0.0.1:4330/

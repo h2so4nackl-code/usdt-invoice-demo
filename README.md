@@ -1,92 +1,112 @@
-# USDt Invoice Demo
+# USDt Invoice Demo · WDK read-only
 
-Dashboard local în română pentru **facturi și reconcilierea plăților USDt simulate**. Proiect de portofoliu separat de WDK Agent Payment Sandbox.
+Dashboard local în română pentru facturi și reconciliere. **Simularea este implicită.** Un mod separat verifică evenimente ERC-20 reale de **Sepolia, numai în citire**, folosind Tether WDK oficial.
 
-**Este exclusiv o simulare cu date sintetice. Fără wallet, seed, chei, WDK, testnet, mainnet, tranzacții sau fonduri reale.** Simularea este indicată permanent în interfață. Nu introduce date personale sau date financiare reale.
+**Tokenul testnet este USDC de test publicat de Circle, NU USDt oficial.** Fără seed, chei private, signer, transferuri, deployment, mainnet sau fonduri reale. Destinatarul exemplului este o adresă publică terță, nu un wallet al proiectului. WDK Agent Payment Sandbox rămâne nemodificat.
 
 ## Pornire Windows
 
-Necesită Node.js **22 sau mai nou** disponibil în PATH; verificat cu Node 24.16.0 și npm 11.13.0. Nu se instalează software automat. Nu există dependențe npm externe, fonturi externe sau servicii cloud.
+Necesită **Node.js 24+**, verificat cu 24.16.0/npm 11.13.0. Din folderul extras:
 
-1. Extrage arhiva într-un folder nou.
-2. Dublu clic pe **Porneste-demo.cmd**.
-3. Deschide **http://127.0.0.1:4318** în browser. Fereastra de comandă trebuie să rămână deschisă.
-4. Oprește cu **Ctrl+C**. Dacă portul este ocupat, oprește copia anterioară sau pornește într-un terminal cu un alt PORT.
+```powershell
+npm ci --ignore-scripts --omit=optional
+.\Porneste-demo.cmd
+```
 
-Alternativ, din folderul proiectului:
+Deschide http://127.0.0.1:4318. Fereastra terminalului rămâne deschisă; Ctrl+C oprește serverul. Prima instalare necesită internet sau un cache npm local pregătit. După instalare, simularea și toate testele independente funcționează offline. Nu se instalează software sistem automat. Arhiva nu include node_modules/cache/date de lucru; facturile încep goale.
 
 ```powershell
 npm start
-```
-
-Datele sunt salvate atomic în `data/ledger.json`, creat la prima operație. Arhiva începe fără facturi; capturile și exportul de verificare arată numai scenarii sintetice executate în browser. Datele de lucru nu sunt incluse în arhivă. Exportă înainte de a muta sau înlocui folderul. Nu rula două servere simultan peste aceeași stocare: demo-ul nu implementează blocare între procese.
-
-Port alternativ:
-
-```powershell
-$env:PORT='4319'
-npm start
-```
-
-## Funcționalitate
-
-- Creare facturi cu client sintetic, sumă și expirare în ora locală.
-- Stări: **În așteptare, În confirmare, Parțială, Achitată, Expirată**.
-- Valori pozitive, maximum 18 cifre înainte de punct și **maximum 6 zecimale**. Introducerea folosește punct, afișarea românească folosește virgulă. Nu se rotunjește și nu se folosește `Number` pentru solduri.
-- Sume în micro-unități BigInt; JSON serializează sumele ca șiruri exacte.
-- Prag fix: **3 confirmări simulate**. Plățile sub prag apar separat și nu reduc restul de încasat.
-- Plăți parțiale, excedent confirmat și actualizarea confirmărilor. Scăderea sub prag elimină creditul din sold; factura poate reveni din Achitată în Parțială, În confirmare sau Expirată.
-- ID global de observație. Duplicatul identic nu schimbă soldul sau jurnalul. Același ID cu altă sumă/factură este respins; actualizările schimbă numai confirmările.
-- Token/rețea/destinatar sunt fixe și validate: `mock:USDt`, `sandbox:local`, `sim:merchant`. Formularul nu permite substituirea lor; API-ul respinge valorile greșite.
-- Jurnal de modificări și export JSON complet. Interfața afișează cele mai recente 40 de evenimente; exportul include întregul jurnal.
-- Interfață responsive, focus vizibil, etichete pentru controale, feedback de eroare și modal nativ.
-
-## Scenariu rapid
-
-1. Creează o factură de `100` USDt pentru un client sintetic, cu expirare mâine.
-2. Selectează factura și „Observă o plată simulată”: ID `sim-001`, sumă `40`, confirmări `0` → În confirmare, rest `100`.
-3. Actualizează la `3` confirmări → Parțială, confirmat `40`, rest `60`.
-4. Actualizează din nou la `3` → duplicat ignorat, sold neschimbat.
-5. Scade la `1` → confirmat `0`, rest `100`.
-6. Revino la `3`; observă ID `sim-002`, sumă `65`, confirmări `3` → Achitată, excedent `5`.
-7. Creează o factură fără plată cu expirare peste aproximativ 15 secunde. Așteaptă; starea se actualizează automat în Expirată când nu editezi un formular.
-8. „Export JSON” descarcă facturile, observațiile, jurnalul și profilul explicit de simulare.
-
-## Semantica expirării
-
-Achitată are prioritate dacă suma confirmată acoperă factura. Altfel, după termen, starea este Expirată, inclusiv pentru facturi parțiale. Observațiile tardive sunt păstrate și reconciliate: nu ascundem o plată numai pentru că factura a expirat. Plata confirmată integral tardivă poate deveni Achitată. Expirarea este derivată din timp, nu o tranzacție înscrisă în jurnal. Confirmările sunt introduse manual și nu reprezintă finalitate blockchain.
-
-## Testare și verificare
-
-```powershell
-npm ci --ignore-scripts --offline
 npm test
+npm run test:simulation
+npm run test:wdk
 npm run check
 ```
 
-Nu este necesară conexiunea la internet pentru aceste comenzi. Testele Node folosesc ceas injectat, HTTP loopback și stocare temporară izolată. Nu se bazează pe portul aplicației, datele browserului sau fonduri. `check` verifică sintaxa JavaScript și câteva tipare nesigure/secrete; nu este un audit formal. Proiect JavaScript ESM, fără build sau TypeScript de pretins.
+## Simulare implicită
 
-Rezultatele efectiv executate, remedierea testelor și verificările browserului sunt în [VERIFICARI.md](VERIFICARI.md). Capturi reale:
+Client sintetic, sumă exactă până la 6 zecimale, expirare; stări În așteptare, În confirmare, Parțială, Achitată, Expirată. BigInt în micro-unități, șiruri exacte în JSON. Plăți parțiale/excedent, duplicate ignorate, modificarea confirmărilor fără dublare și retragerea creditului sub prag. Punct la introducere, virgulă la afișare. Maximum 18 cifre înainte de punct; fără rotunjire sau calcule monetare cu Number.
 
-![Dashboard desktop](evidence/desktop.jpg)
+Simularea păstrează comportamentul v0.1.0: o plată confirmată integral poate achita și o factură expirată; confirmările se introduc manual. Datele sunt în data/ledger.json, salvate atomic. Nu rula două procese de simulare simultan peste același fișier.
 
-![Dashboard telefon](evidence/phone-summary.jpg)
+## WDK · testnet · read-only
 
-## Structură
+1. Copiază `.env.example` în `.env`. Exemplul conține numai endpoint public și destinatar public verificat; nu introduce seed/chei private sau credențiale reale. Poți utiliza variabile de mediu în locul fișierului.
+2. Repornește serverul. Selectează „WDK · testnet · read-only” în interfață. Nu se efectuează RPC în simularea implicită; configurarea stocării testnet nu înseamnă o citire de rețea.
+3. „Verifică WDK și profilul” verifică chainId, bytecode, decimals și citește adresa/soldul ERC-20 prin WalletAccountReadOnlyEvm.
+4. Creează o factură testnet separată, cu interval validFrom–expiresAt explicit.
+5. Introdu hash-ul tranzacției Sepolia și **logIndex**. Asocierea cu factura selectată este explicită. Nu deducem factura numai din sumă/adresă și nu selectăm automat un log dintre mai multe.
+6. „Reverifică evenimentele asociate” citește din nou blocurile/logurile și poate retrage credit după reorganizare. Maximum 20 tranzacții per refresh; peste limită verifică individual.
 
-```text
-src/ledger.mjs       Model, validări, BigInt, reconciliere, jurnal
-src/server.mjs       Server Node HTTP loopback, API, persistare atomică
-public/             HTML, CSS, JavaScript în română, fără framework
-tests/              Teste model, HTTP, stocare
-scripts/check.mjs   Verificare sintaxă și tipare limitate
-evidence/           Capturi reale, export sintetic, rezultate
-Porneste-demo.cmd   Pornire Windows
-data/               Stocare locală generată, exclusă din distribuție
+RPC-ul este configurat exclusiv pe server: WDK_RPC_URL (HTTPS), WDK_RPC_TRANSPORT (fetch implicit; opțional powershell), WDK_RECIPIENT (adresă publică). Nu acceptăm URL-uri din browser. Endpointul/parametrii secreți nu sunt returnați în erori, exporturi sau capturi. Un transport read-only permite numai eth_chainId, eth_blockNumber, eth_getCode, eth_call, eth_getTransactionReceipt și eth_getBlockByNumber; send/sign sunt respinse.
+
+În mediul de verificare Node HTTPS a fost restricționat. Am folosit transportul opțional PowerShell 7 deja disponibil:
+
+```powershell
+$env:WDK_RPC_TRANSPORT='powershell'
+npm start
 ```
 
-## Limite și siguranță
+Acesta forwardează numai citirile HTTPS server-configurate, cu stdin, limite și timeout, fără modificarea proxy-ului/certificatelor/setărilor Windows. Nu instala PowerShell automat; dacă nu este disponibil, păstrează fetch într-un mediu cu HTTPS funcțional. `.env` nu se distribuie și nu se comite.
 
-Server legat numai la `127.0.0.1`, fără CORS; validare Host, Origin și Content-Type pentru scrieri, corp limitat la 16 KiB, CSP fără scripturi inline, text dinamic prin `textContent`. Nicio modificare a setărilor Windows. Stocarea se validează la pornire și eșuează închis dacă este invalidă; nu este suprascrisă automat pentru a ascunde corupția.
+### Profil verificat
 
-Demo pentru un singur utilizator/proces, fără autentificare, baze de date multi-user, taxe, curs valutar, import JSON, monitorizare de rețea sau recuperare economică reală. Limite: 500 facturi, 2000 observații, 10000 evenimente; la capacitate se resping scrieri noi, nu se șterg dovezi. Nu îl expune public și nu îl utiliza ca sistem de facturare financiară. Fără integrare WDK/testnet și fără certificare/audit de securitate.
+- Ethereum Sepolia: chainId **11155111**, verificat la fiecare operație live.
+- Contract **USDC de test**: `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`, din tabelul oficial Circle; decimals **6**, verificate prin RPC.
+- WalletAccountReadOnlyEvm oficial din **@tetherto/wdk-wallet-evm 1.0.0-beta.20**, versiune exactă și lockfile. WDK este beta; nu pretindem stabilitate de producție sau endorsement.
+- Prag demonstrativ: **3** confirmări, nu garanție de finalitate economică.
+
+Proveniență exactă și surse: [RESEARCH-WDK.md](RESEARCH-WDK.md). WDK citește adresa/soldul; reconcilierea și validarea proaspătă a receipt-ului/logurilor/blocului sunt codul nostru RPC read-only. WDK are și API-uri de receipt; nu pretindem că acestea lipsesc sau că WDK realizează întreaga reconciliere.
+
+### Dovadă live existentă
+
+```text
+Transaction: 0x995f95f890140017d7c8a99c32a9eb275f64a68695fe9fff0eab974e5fdb685a
+LogIndex: 4
+Recipient: 0xe969a25b358325cd9db8fbdfc68e19f6b1709fcd
+Amount: 20000000 micro-units = 20 USDC test
+Block: 11843617
+Block timestamp: 2026-10-04T17:43:48.000Z
+```
+
+[Explorer public](https://eth-sepolia.blockscout.com/tx/0x995f95f890140017d7c8a99c32a9eb275f64a68695fe9fff0eab974e5fdb685a). Pentru exemplul din UI, definește explicit un interval local care include timestamp-ul (ex. 04 octombrie 2026 00:00 până la 05 octombrie 23:59) și suma 20. Nu afirmăm că acea factură exista la momentul tranzacției, că destinatarul ne aparține sau că am inițiat plata. Reproducerea live necesită internet și disponibilitatea datelor istorice:
+
+```powershell
+npm run verify:live
+```
+
+Rezultatul real este în [live.json](evidence/wdk/live.json). Scriptul folosește un store temporar în memorie; nu modifică facturile tale și nu semnează nimic. Dacă RPC/evenimentul nu mai este disponibil, raportează BLOCKED, fără date fabricate.
+
+## Reguli de reconciliere
+
+Cheie unică: **chainId + transactionHash + logIndex**. Aceasta rămâne rezervată primei facturi asociate, inclusiv după reorg. Receipt status=1, contract emitter exact, topic Transfer/ABI valid, destinatar corect, sumă uint256 pozitivă. Canonical block hash este verificat de două ori. Confirmări = head − inclusion block + 1.
+
+Credit testnet numai când timestamp-ul **blocului**, nu timpul observației HTTP, aparține intervalului validFrom inclusiv / expiresAt exclusiv. Evenimentele în afara intervalului rămân vizibile fără credit. Atingerea pragului reduce restul; scăderea confirmărilor sau dispariția evenimentului poate readuce factura în stare neplătită. Verificarea unui hash actualizează toate evenimentele deja asociate din acel hash, fără asocierea automată a logurilor noi.
+
+Datele testnet sunt în data/testnet.sqlite: facturi, evenimente și jurnal actualizate tranzacțional, WAL, synchronous FULL, foreign keys și index unic. Profilul chain/token/recipient este legat de bază; schimbarea destinatarului peste aceeași bază este respinsă. Exportă și folosește un alt folder/profil local pentru un destinatar diferit; aplicația nu șterge automat datele.
+
+Reverificarea mai multor hash-uri comite separat fiecare tranzacție; o eroare ulterioară nu anulează verificările precedente. Erorile RPC păstrează ultima stare reușită și sunt vizibile. Reorganizările sunt detectate la verificare explicită, nu printr-un watcher permanent. Acesta nu este un light client sau o dovadă criptografică de consens; RPC rămâne o limită de încredere.
+
+## Dovezi și structură
+
+[Teste și rezultate](INTEGRATION-RESULTS.md), [inventar dependențe](evidence/wdk/dependencies.json), [audit npm real](evidence/wdk/npm-audit.json). **82/82 teste PASS: 48 originale + 34 WDK/testnet.** Suitele offline folosesc WDK oficial cu provider determinist; live.json și capturile sunt verificări distincte pe rețeaua reală de test. Nu confundăm fixture-urile cu tranzacții live.
+
+Capturi reale: [desktop WDK](evidence/wdk/desktop.jpg), [390px WDK](evidence/wdk/phone-390.jpg), [320px WDK](evidence/wdk/phone-320.jpg), [simulare desktop](evidence/wdk/simulation-desktop.jpg). Fără imagini generate sau date blockchain fabricate.
+
+```text
+src/ledger.mjs          Simulare originală și BigInt
+src/testnet-rpc.mjs     Profil Sepolia și transport RPC fără scrieri
+src/wdk-readonly.mjs    WDK read-only, receipt/log/canonical validator
+src/testnet-store.mjs   SQLite, reconciliere, reorg și jurnal atomic
+src/server.mjs         Loopback API, moduri separate
+public/                UI română responsive
+scripts/live-check.mjs Dovadă live read-only separată
+tests/                 Baseline + WDK/RPC/SQLite/HTTP adversarial
+evidence/wdk/          Rezultate actuale, metadate, capturi și export
+```
+
+## Publicare și limite
+
+Branch local **feature/wdk-testnet-readonly**, baseline păstrat pe main. Nicio publicare sau grant submission. Arhiva de surse exclude .git, .env, date/SQLite, node_modules, cache și loguri locale. License Apache-2.0 candidat; [notices](THIRD-PARTY-NOTICES.md). Owner-ul confirmă drepturi și contact înainte de publicare. Fără endorsement Tether/Circle, audit formal, certificare sau mainnet readiness.
+
+Server loopback, Host/Origin și Content-Type validate, CSP, corp de cerere limitat, textContent în UI. Numai date sintetice pentru facturi și adrese/tranzacții publice de test pentru citiri. Fără autentificare multi-user, servicii financiare sau expunere publică. Nu instala/folosi seed, chei, wallet extensions ori RPC credentials reale pentru acest demo.

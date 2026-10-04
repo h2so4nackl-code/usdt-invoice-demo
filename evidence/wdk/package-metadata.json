@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-10-04T18:02:56.2383932Z",
+  "distTags": {
+    "rc": "2.0.0-rc.1",
+    "latest": "1.0.0-beta.20"
+  },
+  "installedVersion": "1.0.0-beta.20",
+  "license": "Apache-2.0",
+  "repository": {
+    "url": "git://github.com/tetherto/wdk-wallet-evm.git",
+    "type": "git"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "onFail": "error",
+      "version": ">=22.13.0"
+    }
+  },
+  "dist": {
+    "shasum": "312a7713a589a67a8626f7d6579032a97ad413a6",
+    "tarball": "https://registry.npmjs.org/@tetherto/wdk-wallet-evm/-/wdk-wallet-evm-1.0.0-beta.20.tgz",
+    "fileCount": 26,
+    "integrity": "sha512-mdDbrAU/Fjamvhi26btf92Xaq/HOO5a/CLy7ZrDRfSkciOPII2gyS4HdiJlHfGeL19AkAjADzE/yCfJoOBn5rA==",
+    "signatures": [
+      {
+        "sig": "MEUCIB5I1Zr162Czg9g/Ft0uJTINq4/i9n4kZKtvYWpMNq/xAiEAyclrrzsaDuYt4cTKBFa+8nWMXULOl627Ikk+87vBYes=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+        "sig": "MEUCIQC7Rhui/yLWlgTW3+hTJFSi44qbstSRuDvSBxI9cI5umwIgaxnB3D9DCEEXfNhPkwzRDU+vrZs/818XBhhwa4zAQY8="
+      }
+    ],
+    "attestations": {
+      "url": "https://registry.npmjs.org/-/npm/v1/attestations/@tetherto%2fwdk-wallet-evm@1.0.0-beta.20",
+      "provenance": {
+        "predicateType": "https://slsa.dev/provenance/v1"
+      }
+    },
+    "unpackedSize": 162957
+  }
+}

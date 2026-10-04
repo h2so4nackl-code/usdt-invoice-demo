@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "scope": "Intended source/docs/public evidence; excludes databases, caches, .env and dependencies",
+  "textFiles": 41,
+  "findings": [],
+  "formalAudit": false
+}

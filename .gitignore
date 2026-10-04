@@ -1,7 +1,13 @@
 node_modules/
+.npm-cache/
+.npm-downloads/
+.reproduction/
+.local/
+*.sqlite*
 data/
 *.tmp
 *.log
 .env
 .env.*
 !.env.example
+evidence/integration/

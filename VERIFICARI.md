@@ -1,5 +1,7 @@
 # Verificări locale — 2026-10-04
 
+Document istoric pentru baseline **v0.1.0**, anterior integrării WDK. Pentru versiunea curentă v0.2.0 vezi [INTEGRATION-RESULTS.md](INTEGRATION-RESULTS.md). Dovezile originale sunt păstrate.
+
 ## Proveniență și izolare
 
 Arhiva `usdt-invoice-demo-v0.1.0.zip` nu a fost găsită în workspace, Downloads, Desktop, Documents sau folderul de atașamente verificat. Proiectul a fost reconstruit separat în `usdt-invoice-demo`. Nu există o suită preexistentă în această copie; afirmația anterioară „18/18” nu este preluată ca rezultat. Proiectul WDK nu a fost modificat.

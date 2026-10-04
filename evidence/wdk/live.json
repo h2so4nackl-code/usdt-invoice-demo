@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-10-04T17:56:44.898Z",
+  "source": "Existing public Sepolia transfer; read only, no ownership or historical invoice claim",
+  "explorer": "https://eth-sepolia.blockscout.com/tx/0x995f95f890140017d7c8a99c32a9eb275f64a68695fe9fff0eab974e5fdb685a",
+  "profile": {
+    "chainId": 11155111,
+    "network": "eip155:11155111",
+    "token": "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
+    "decimals": 6,
+    "symbol": "USDC de test — nu USDt",
+    "requiredConfirmations": 3,
+    "recipient": "0xe969a25b358325cd9db8fbdfc68e19f6b1709fcd",
+    "wdkVersion": "1.0.0-beta.20",
+    "wdkAddress": "0xe969a25b358325cd9db8fbdfc68e19f6b1709fcd",
+    "balanceUnits": "35606328",
+    "readOnly": true
+  },
+  "event": {
+    "key": "11155111:0x995f95f890140017d7c8a99c32a9eb275f64a68695fe9fff0eab974e5fdb685a:4",
+    "transactionHash": "0x995f95f890140017d7c8a99c32a9eb275f64a68695fe9fff0eab974e5fdb685a",
+    "logIndex": 4,
+    "amountUnits": "20000000",
+    "recipient": "0xe969a25b358325cd9db8fbdfc68e19f6b1709fcd",
+    "token": "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
+    "chainId": 11155111,
+    "blockNumber": "11843617",
+    "blockHash": "0xfbd6e66790cd862276fb9d7654a98ce3d776f63e8fee8e9977f5a04ef3dc8931",
+    "blockTimestamp": "2026-10-04T17:43:48.000Z",
+    "confirmations": 56
+  },
+  "invoice": {
+    "id": "5aafc56b-3d9c-4d53-a14b-d26620777ab4",
+    "number": "TEST-0001",
+    "client": "Demonstrație istorică — adresă publică terță",
+    "amountUnits": "20000000",
+    "validFrom": "2026-10-04T17:43:47.000Z",
+    "expiresAt": "2026-10-04T18:43:48.000Z",
+    "createdAt": "2026-10-04T17:56:33.780Z",
+    "amount": "20.000000",
+    "confirmed": "20.000000",
+    "pending": "0.000000",
+    "remaining": "0.000000",
+    "excess": "0.000000",
+    "status": "paid",
+    "observations": [
+      {
+        "key": "11155111:0x995f95f890140017d7c8a99c32a9eb275f64a68695fe9fff0eab974e5fdb685a:4",
+        "transactionHash": "0x995f95f890140017d7c8a99c32a9eb275f64a68695fe9fff0eab974e5fdb685a",
+        "logIndex": 4,
+        "amountUnits": "20000000",
+        "recipient": "0xe969a25b358325cd9db8fbdfc68e19f6b1709fcd",
+        "token": "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
+        "chainId": 11155111,
+        "blockNumber": "11843617",
+        "blockHash": "0xfbd6e66790cd862276fb9d7654a98ce3d776f63e8fee8e9977f5a04ef3dc8931",
+        "blockTimestamp": "2026-10-04T17:43:48.000Z",
+        "confirmations": 57,
+        "canonical": true,
+        "invoiceId": "5aafc56b-3d9c-4d53-a14b-d26620777ab4",
+        "transactionId": "11155111:0x995f95f890140017d7c8a99c32a9eb275f64a68695fe9fff0eab974e5fdb685a:4",
+        "eligible": true
+      }
+    ]
+  },
+  "mainnet": false,
+  "signatures": 0,
+  "broadcasts": 0,
+  "realFunds": 0
+}
