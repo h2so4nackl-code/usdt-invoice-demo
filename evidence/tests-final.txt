@@ -1,0 +1,60 @@
+
+> usdt-invoice-demo@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ maximum 6 decimals and exact BigInt arithmetic (4.2525ms)
+✔ invalid amount 0 rejected (0.6277ms)
+✔ invalid amount -1 rejected (0.1718ms)
+✔ invalid amount 1.0000001 rejected (0.1969ms)
+✔ invalid amount 1e6 rejected (0.213ms)
+✔ invalid amount  1 rejected (0.2373ms)
+✔ invalid amount 1  rejected (0.2701ms)
+✔ invalid amount 1,2 rejected (0.1894ms)
+✔ invalid amount 01 rejected (0.22ms)
+✔ invalid amount NaN rejected (0.3729ms)
+✔ invalid amount Infinity rejected (0.1063ms)
+✔ invalid amount .5 rejected (0.137ms)
+✔ invalid amount 1. rejected (0.1102ms)
+✔ invalid amount 1000000000000000000 rejected (0.1003ms)
+✔ invalid amount 1 rejected (0.0613ms)
+✔ invalid amount null rejected (0.0802ms)
+✔ new invoice pending and independent snapshot (3.4659ms)
+✔ observed unconfirmed payment does not reduce remaining (0.9762ms)
+✔ partial then fully paid with independent transactions (0.7921ms)
+✔ overpayment tracked separately (0.8022ms)
+✔ exact duplicate no amount or journal inflation (1.9272ms)
+✔ confirmation update replaces observation and never doubles amount (0.6089ms)
+✔ confirmation decrease reverts paid to confirming and recalculates balance (0.489ms)
+✔ reorg removes one credit preserving other confirmed payment (0.6417ms)
+✔ same transaction cannot change amount (0.6229ms)
+✔ same transaction cannot be attributed to second invoice (0.8301ms)
+✔ wrong network rejected without mutation (0.6457ms)
+✔ wrong token rejected without mutation (0.547ms)
+✔ wrong recipient rejected without mutation (0.4288ms)
+✔ invalid confirmations -1 (0.2512ms)
+✔ invalid confirmations 1.5 (0.1464ms)
+✔ invalid confirmations 3 (0.207ms)
+✔ invalid confirmations 100001 (0.2479ms)
+✔ invalid confirmations NaN (0.1442ms)
+✔ unknown invoice fails (0.2187ms)
+✔ unpaid expiry is recalculated from clock (0.2606ms)
+✔ paid remains paid after expiry; reorg then expires (0.3311ms)
+✔ late confirmed observation accounted; fully paid supersedes expiry (0.2201ms)
+✔ invalid expiry rejected (0.3489ms)
+✔ unrecognized fields and accessor commands rejected before execution (0.4671ms)
+✔ failed persistence does not commit or consume invoice number (0.3672ms)
+✔ persisted state reload preserves sums and duplicates (0.4513ms)
+✔ stored duplicate and wrong profile fail closed (0.4574ms)
+✔ HTTP create, partial, confirm, duplicate, reorg, export and restart persistence (132.3323ms)
+✔ host/origin and JSON boundary reject hostile requests (16.6863ms)
+✔ HTML simulation, CSP, export download, missing route (10.9173ms)
+✔ stored amount must be string, never an imprecise JSON number (4.6337ms)
+✔ journal capacity blocks new invoices without discarding audit trail (76.349ms)
+ℹ tests 48
+ℹ suites 0
+ℹ pass 48
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 348.4239

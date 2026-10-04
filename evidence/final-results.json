@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-04",
+  "node": "v24.16.0",
+  "npm": "11.13.0",
+  "runtimeTests": {
+    "total": 48,
+    "passed": 48,
+    "failed": 0
+  },
+  "sourceCheck": "PASS",
+  "windowsLauncher": "PASS",
+  "desktop": "PASS",
+  "phone390": "PASS",
+  "phone320": "PASS",
+  "browserExport": "PASS",
+  "consoleErrors": 0,
+  "realFunds": 0,
+  "wallets": 0,
+  "wdkIntegration": false,
+  "testnet": false,
+  "publicationActions": 0,
+  "archiveReproduction": "PASS: fresh extracted archive, npm ci offline, 48/48 tests, syntax/scan"
+}
