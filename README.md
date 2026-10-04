@@ -1,5 +1,7 @@
 # USDt Invoice Demo · WDK read-only
 
+[![Offline conformance](https://github.com/h2so4nackl-code/usdt-invoice-demo/actions/workflows/conformance.yml/badge.svg?branch=main)](https://github.com/h2so4nackl-code/usdt-invoice-demo/actions/workflows/conformance.yml)
+
 Dashboard local în română pentru facturi și reconciliere. **Simularea este implicită.** Un mod separat verifică evenimente ERC-20 reale de **Sepolia, numai în citire**, folosind Tether WDK oficial.
 
 **Tokenul testnet este USDC de test publicat de Circle, NU USDt oficial.** Fără seed, chei private, signer, transferuri, deployment, mainnet sau fonduri reale. Destinatarul exemplului este o adresă publică terță, nu un wallet al proiectului. WDK Agent Payment Sandbox rămâne nemodificat.
@@ -21,6 +23,7 @@ npm test
 npm run test:simulation
 npm run test:wdk
 npm run check
+npm run scan:history # în checkout Git complet; nu în arhiva fără .git
 ```
 
 ## Simulare implicită
@@ -93,6 +96,10 @@ Reverificarea mai multor hash-uri comite separat fiecare tranzacție; o eroare u
 
 Capturi reale: [desktop WDK](evidence/wdk/desktop.jpg), [390px WDK](evidence/wdk/phone-390.jpg), [320px WDK](evidence/wdk/phone-320.jpg), [simulare desktop](evidence/wdk/simulation-desktop.jpg). Fără imagini generate sau date blockchain fabricate.
 
+![Dashboard WDK read-only cu eveniment public Sepolia](evidence/wdk/desktop.jpg)
+
+CI instalează din lockfile și rulează cele 82 teste offline pe Windows și Ubuntu 26.04. Verificarea live este **separată**, necesită internet/RPC și nu este executată de workflow. Un badge verde nu demonstrează disponibilitatea RPC ori validitatea actuală a unui eveniment istoric.
+
 ```text
 src/ledger.mjs          Simulare originală și BigInt
 src/testnet-rpc.mjs     Profil Sepolia și transport RPC fără scrieri
@@ -107,6 +114,6 @@ evidence/wdk/          Rezultate actuale, metadate, capturi și export
 
 ## Publicare și limite
 
-Branch local **feature/wdk-testnet-readonly**, baseline păstrat pe main. Nicio publicare sau grant submission. Arhiva de surse exclude .git, .env, date/SQLite, node_modules, cache și loguri locale. License Apache-2.0 candidat; [notices](THIRD-PARTY-NOTICES.md). Owner-ul confirmă drepturi și contact înainte de publicare. Fără endorsement Tether/Circle, audit formal, certificare sau mainnet readiness.
+Repository de surse: [h2so4nackl-code/usdt-invoice-demo](https://github.com/h2so4nackl-code/usdt-invoice-demo), publicat cu autorizarea proprietarului. Integrarea a fost dezvoltată separat pe feature/wdk-testnet-readonly; main public conține snapshot-ul verificat. Rapoartele datate ale baseline-ului păstrează starea istorică anterioară publicării. Arhivele, .env, date/SQLite, node_modules, cache și logurile locale nu se publică. Apache-2.0; [notices](THIRD-PARTY-NOTICES.md). Fără afiliere/aprobare Tether sau Circle, audit formal, certificare ori mainnet readiness. Nu se publică dashboard-ul ca serviciu; serverul rămâne pe loopback. Nicio aplicație de grant nu este trimisă.
 
 Server loopback, Host/Origin și Content-Type validate, CSP, corp de cerere limitat, textContent în UI. Numai date sintetice pentru facturi și adrese/tranzacții publice de test pentru citiri. Fără autentificare multi-user, servicii financiare sau expunere publică. Nu instala/folosi seed, chei, wallet extensions ori RPC credentials reale pentru acest demo.

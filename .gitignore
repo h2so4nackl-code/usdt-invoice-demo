@@ -7,6 +7,9 @@ node_modules/
 data/
 *.tmp
 *.log
+*.zip
+*.bundle
+*.db
 .env
 .env.*
 !.env.example
