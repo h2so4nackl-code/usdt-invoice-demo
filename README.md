@@ -114,6 +114,8 @@ evidence/wdk/          Rezultate actuale, metadate, capturi și export
 
 ## Publicare și limite
 
+Release public: [v0.1.0](https://github.com/h2so4nackl-code/usdt-invoice-demo/releases/tag/v0.1.0).
+
 Repository de surse: [h2so4nackl-code/usdt-invoice-demo](https://github.com/h2so4nackl-code/usdt-invoice-demo), publicat cu autorizarea proprietarului. Integrarea a fost dezvoltată separat pe feature/wdk-testnet-readonly; main public conține snapshot-ul verificat. Rapoartele datate ale baseline-ului păstrează starea istorică anterioară publicării. Arhivele, .env, date/SQLite, node_modules, cache și logurile locale nu se publică. Apache-2.0; [notices](THIRD-PARTY-NOTICES.md). Fără afiliere/aprobare Tether sau Circle, audit formal, certificare ori mainnet readiness. Nu se publică dashboard-ul ca serviciu; serverul rămâne pe loopback. Nicio aplicație de grant nu este trimisă.
 
 Server loopback, Host/Origin și Content-Type validate, CSP, corp de cerere limitat, textContent în UI. Numai date sintetice pentru facturi și adrese/tranzacții publice de test pentru citiri. Fără autentificare multi-user, servicii financiare sau expunere publică. Nu instala/folosi seed, chei, wallet extensions ori RPC credentials reale pentru acest demo.
