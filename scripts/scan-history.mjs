@@ -1,6 +1,10 @@
 // Publication guard: inspect every reachable Git blob/path and commit metadata.
 // Findings report object/path/rule only; never echo potentially secret content.
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+// Reviewed repository-owner identity from GitHub commit metadata. Keep the address
+// out of source; this exception applies only to author/committer email fields.
+const reviewedOwnerEmailSha256='009a446d643f21cb15cb77e1dd0a470c03c3d07f00f0ba4b2e2d25c930e66a74';
 const args=['-c',`safe.directory=${process.cwd()}`];
 const git=(...input)=>execFileSync('git',[...args,...input],{maxBuffer:32*1024*1024});
 const commits=git('rev-list','--all').toString().trim().split('\n').filter(Boolean);
@@ -30,6 +34,13 @@ for(const line of objects){
   if(/\.(?:jpg|jpeg|png)$/i.test(path)){images++;continue;} // actual captures manually reviewed separately
   inspect(buffer.toString('utf8'),object,path);
 }
-for(const commit of commits)inspect(git('show','-s','--format=%an <%ae>%n%cn <%ce>%n%B',commit).toString(),commit,'commit-metadata');
+for(const commit of commits){
+  const metadata=git('show','-s','--format=%an%n%ae%n%cn%n%ce%n%B',commit).toString().split('\n');
+  for(const index of [1,3]){
+    const email=metadata[index];
+    if(createHash('sha256').update(email).digest('hex')===reviewedOwnerEmailSha256)metadata[index]='reviewed-owner-email';
+  }
+  inspect(metadata.join('\n'),commit,'commit-metadata');
+}
 console.log(JSON.stringify({status:findings.length?'FAIL':'PASS',commits:commits.length,blobs,imagesRequiringVisualReview:images,findings,boundedPatternScan:true,formalAudit:false},null,2));
 if(findings.length)process.exitCode=1;
