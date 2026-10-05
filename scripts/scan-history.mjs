@@ -15,12 +15,15 @@ const rules=[
   ['rpc-query-key',/[?&](?:api[_-]?key|token|secret|access_token)=[^\s'"&]+/i],
   ['assigned-secret',/(?:privateKey|mnemonic|seedPhrase|rpcKey|apiKey|accessToken)\s*[:=]\s*['"][^'"\n]{12,}['"]/i]
 ];
-function inspect(text,object,path){
+function inspect(text,object,path,{commitIdentity=false}={}){
   // The one deliberately public synthetic RPC-failure fixture is not a credential.
   text=text.replaceAll('?apiKey=SYNTHETIC_RPC_SECRET','?synthetic-fixture');
   for(const [rule,pattern] of rules)if(pattern.test(text))findings.push({object,path,rule});
   const emails=text.match(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/gi)??[];
-  if(emails.some(email=>email!=='local-preparation@invalid.example'))findings.push({object,path,rule:'email-review-required'});
+  // GitHub privacy aliases are allowed only in author/committer identity fields.
+  // Commit messages and file contents still require review for every other email.
+  const privacyAlias=email=>email===['noreply','github.com'].join('@')||/^(?:\d+\+)?[a-z\d](?:[a-z\d-]*[a-z\d])?@users\.noreply\.github\.com$/i.test(email);
+  if(emails.some(email=>email!=='local-preparation@invalid.example'&&!(commitIdentity&&privacyAlias(email))))findings.push({object,path,rule:'email-review-required'});
 }
 for(const line of objects){
   const split=line.indexOf(' '),object=split<0?line:line.slice(0,split),path=split<0?'':line.slice(split+1);
@@ -30,6 +33,10 @@ for(const line of objects){
   if(/\.(?:jpg|jpeg|png)$/i.test(path)){images++;continue;} // actual captures manually reviewed separately
   inspect(buffer.toString('utf8'),object,path);
 }
-for(const commit of commits)inspect(git('show','-s','--format=%an <%ae>%n%cn <%ce>%n%B',commit).toString(),commit,'commit-metadata');
+for(const commit of commits){
+  const [authorName,authorEmail,committerName,committerEmail,...message]=git('show','-s','--format=%an%x00%ae%x00%cn%x00%ce%x00%B',commit).toString().split('\0');
+  inspect(`${authorName}\n${committerName}\n${message.join('\0')}`,commit,'commit-metadata');
+  inspect(`${authorEmail}\n${committerEmail}`,commit,'commit-metadata',{commitIdentity:true});
+}
 console.log(JSON.stringify({status:findings.length?'FAIL':'PASS',commits:commits.length,blobs,imagesRequiringVisualReview:images,findings,boundedPatternScan:true,formalAudit:false},null,2));
 if(findings.length)process.exitCode=1;
