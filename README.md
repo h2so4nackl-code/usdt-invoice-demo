@@ -98,7 +98,7 @@ Capturi reale: [desktop WDK](evidence/wdk/desktop.jpg), [390px WDK](evidence/wdk
 
 ![Dashboard WDK read-only cu eveniment public Sepolia](evidence/wdk/desktop.jpg)
 
-CI instalează din lockfile și rulează cele 82 teste offline pe Windows și Ubuntu 26.04. Verificarea live este **separată**, necesită internet/RPC și nu este executată de workflow. Un badge verde nu demonstrează disponibilitatea RPC ori validitatea actuală a unui eveniment istoric.
+CI instalează din lockfile și rulează 88 de teste offline pe Windows și Ubuntu 26.04: cele 82 de teste ale aplicației și 6 teste de regresie pentru scanarea istoricului Git. Verificarea live este **separată**, necesită internet/RPC și nu este executată de workflow. Un badge verde nu demonstrează disponibilitatea RPC ori validitatea actuală a unui eveniment istoric.
 
 ```text
 src/ledger.mjs          Simulare originală și BigInt
@@ -113,6 +113,8 @@ evidence/wdk/          Rezultate actuale, metadate, capturi și export
 ```
 
 ## Publicare și limite
+
+Release public: [v0.1.0](https://github.com/h2so4nackl-code/usdt-invoice-demo/releases/tag/v0.1.0).
 
 Repository de surse: [h2so4nackl-code/usdt-invoice-demo](https://github.com/h2so4nackl-code/usdt-invoice-demo), publicat cu autorizarea proprietarului. Integrarea a fost dezvoltată separat pe feature/wdk-testnet-readonly; main public conține snapshot-ul verificat. Rapoartele datate ale baseline-ului păstrează starea istorică anterioară publicării. Arhivele, .env, date/SQLite, node_modules, cache și logurile locale nu se publică. Apache-2.0; [notices](THIRD-PARTY-NOTICES.md). Fără afiliere/aprobare Tether sau Circle, audit formal, certificare ori mainnet readiness. Nu se publică dashboard-ul ca serviciu; serverul rămâne pe loopback. Nicio aplicație de grant nu este trimisă.
 
